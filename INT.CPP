@@ -457,6 +457,151 @@ void renderScreen(char title[] = "\0", char info[] = "\0")
 
 }
 
+void differentiate()
+{
+	char exp[1000] = "", res[1000] = "";
+	int argcount = 0;
+	char ch;
+	
+	do {
+	
+		clrscr();
+		gotoxy(40 - strlen(exp)/2, 2); 
+		cout<<exp<<endl<<endl;
+		cout<<"Make your choice:\n1. x\n2. sin x\n3. cos x\n4. tan x\n5. e^x\nC. Calculate\n\n";
+		ch = getch();
+		int quit = 0;
+		switch (ch)
+		{
+			case '1':
+			case '2':
+			case '3':
+			case '4':
+			case '5':
+				break;
+			case 'c':
+			case 'C':
+				quit = 1;
+				break;
+			default:
+				continue;
+		}
+		
+		if (quit == 1)
+			break;
+			
+		int coeff = 0, exponent = 0;
+		cout<<"Enter coefficient\n";
+		while (coeff == 0)
+			cin>>coeff;
+		cout<<"\nEnter exponent\n";
+		while (exponent == 0)
+			cin>>exponent;
+		
+		if (argcount != 0)
+		{
+			strcat(exp, " + ");
+			strcat(res, " + ");
+		}
+		
+		char stra[5], strb[5], strc[5], strd[5];
+		itoa(coeff, stra, 10);
+		itoa(coeff*exponent, strb, 10);
+		itoa(exponent, strc, 10);
+		itoa(exponent - 1, strd, 10);
+		
+		if (coeff != 1)	
+			strcat(exp, stra);
+		if (coeff * exponent != 1)
+			strcat(res, strb);
+			
+		switch (ch)
+		{
+			case '1':
+				strcat (exp, "x^");
+				strcat (exp, strc);
+				
+				if (exponent - 1 != 0)
+				{
+					strcat (res, "x^");
+					strcat (res, strd);
+				}
+				else 
+					strcat (res, strb);
+					
+				break;
+				
+			case '2':
+				strcat (exp, "(sin x)^");
+				strcat (exp, strc);
+				
+				strcat (res, "(cos x)");
+				if (exponent - 1 != 0)
+				{
+					strcat (res, "(sin x)^");
+					strcat (res, strd);
+				}
+				
+				break;
+				
+			case '3':
+				strcat (exp, "(cos x)^");
+				strcat (exp, strc);
+				
+				strcat (res, "(-sin x)");
+				if (exponent - 1 != 0)
+				{
+					strcat (res, "(cos x)^");
+					strcat (res, strd);
+				}
+				
+				break;
+				
+			case '4':
+				strcat (exp, "(tan x)^");
+				strcat (exp, strc);
+				
+				strcat (res, "(sec x) ^ 2");
+				if (exponent - 1 != 0)
+				{
+					strcat (res, " * (tan x)^");
+					strcat (res, strd);
+				}
+				
+				break;
+				
+			case '5':
+				strcat (exp, "e^");
+				if(exponent != 1)
+					strcat(exp, strc);
+				strcat(exp, "x");
+				
+				strcat (res, "e^");
+				if(exponent != 1)
+					strcat(res, strc);
+				strcat(res, "x");
+		}
+		
+		clrscr();
+		argcount++;
+		
+	} while (argcount <= 5);
+	
+	clrscr();
+	cout<<"\nResult:\n\n"<<res;
+	
+	fstream x("result.dat", ios::binary|ios::app);
+	entry r;
+	strcpy(r.operand, exp);
+	strcpy(r.operation, "Differentiation");
+	strcpy(r.result, res);
+	x.write((char*)&r, sizeof(r));
+	x.close();
+	
+	getch();
+}
+	
+
 void main()
 {
 	char list[6][100] = {"Definite Integration", "Indefinite Integration", "Differentiation", "Matrix Operations", "History", "Quit"};
