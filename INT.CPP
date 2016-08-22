@@ -290,6 +290,8 @@ void mult (int a[10][10],int b[10][10],int c[10][10],int m)
 
 void matrix_ops()
 {
+	// TODO: alignment editing	
+	
     clrscr();
     int a[10][10], c[10][10], m = 0;
     cout<<"Enter size of square matrix\n";
@@ -304,6 +306,10 @@ void matrix_ops()
     }
     
     int n=0;
+    clrscr();
+    
+    // start here:
+    // char list[8][] = {};
     cout<<"\nSelect Operation \n1.Determinant \n2.Inverse \n3.Transpose \n4.Square \n5.Trace \n6.Multiplication \n7.Adjoint"<<endl;
     while (!(n >= 1 && n <= 7))
         cin>>n;
@@ -381,7 +387,8 @@ void matrix_ops()
 
 void integrate_def()
 {
-
+	// TODO: alignment editing	
+	
 	clrscr();
 	cout<<"Enter lower and upper limit\n";
 	double upper, lower;
@@ -543,7 +550,7 @@ void integrate_def()
 
 void integrate()
 {
-	
+	// TODO: alignment editing	
 	clrscr();
 	char grand[1000] = "";
 	char result[1000] = "";
@@ -745,14 +752,25 @@ void integrate()
 
 void history()
 {
+	const int limit = 8;
+
 	clrscr();
 	fstream x("result.dat", ios::binary|ios::in);
 	entry r;
 	
-	cout<<"History\n\n";
-	while(x.read((char*)&r, sizeof(r)))
+	char a[] = "History";
+	gotoxy(40 - (strlen(a)/2), 2);
+	cout<<a<<endl<<endl;
+	cout<<"ID\tType\tOperand\tResult\n";
+	for(int i = 0; i < 79; i++)
+		cout<<"-";
+	cout<<endl<<endl;
+	
+	int count = 1;
+	while(x.read((char*)&r, sizeof(r)) && count <= limit)
 	{
-		cout<<r.operation<<endl<<r.operand<<endl<<r.result<<"\n\n";
+		cout<<count<<"\t"<<r.operation<<"\t"<<r.operand<<"\t"<<r.result<<"\n\n";
+		count++;
 	}
 	
 	x.close();
@@ -773,6 +791,8 @@ void renderScreen(char title[] = "\0", char info[] = "\0")
 
 void differentiate()
 {
+	// TODO: alignment editing	
+	
 	char exp[1000] = "", res[1000] = "";
 	int argcount = 0;
 	char ch;
