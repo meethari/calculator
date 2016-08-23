@@ -1,3 +1,9 @@
+/*
+
+	SCIENTIFIC CALCULATOR - CS FINAL Project by Hariharan Srinivasulu, Sarvesh Deepak Menon and Hith M Jain, August 2016
+	
+*/
+
 #include <math.h>
 #include <iostream.h>
 #include <fstream.h>
@@ -9,8 +15,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <graphics.h>
-
-// char op_list[7][100] = {"Make your choice:","1. x", "2. sin x", "3. cos x", "4. tan x", "5. e^x", "C. Calculate"};
 
 void box(int pos_x = 0, int pos_y = 0, int rowspan = 77, int colspan = 24){
   char arr[8] = {'Ú', 'Ä', '¿', '³', 'Ù', 'Ä', 'À', '³'};
