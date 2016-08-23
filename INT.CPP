@@ -10,6 +10,61 @@
 #include <time.h>
 #include <graphics.h>
 
+// char op_list[7][100] = {"Make your choice:","1. x", "2. sin x", "3. cos x", "4. tan x", "5. e^x", "C. Calculate"};
+
+void box(int pos_x = 0, int pos_y = 0, int rowspan = 77, int colspan = 24){
+  char arr[8] = {'Ú', 'Ä', '¿', '³', 'Ù', 'Ä', 'À', '³'};
+  rowspan+=2;
+  colspan+=2;
+
+  gotoxy(pos_x+1, pos_y+1);
+  cout<<arr[0];
+  
+  for(int i=(pos_x+2);i<(pos_x + rowspan );i++)
+  {
+    gotoxy(i, pos_y + 1);
+    cout<<arr[1];
+  }
+  
+  gotoxy((pos_x + rowspan ), (pos_y +1));
+  cout<<arr[2];
+
+  for(int j=(pos_y + 2); j<(colspan + pos_y - 1);j++)
+  {
+    gotoxy((pos_x + rowspan),j);
+    cout<<arr[3];
+  }
+  
+  gotoxy((pos_x + rowspan  ), (pos_y + colspan - 1 ));
+  cout<<arr[4];
+
+  for(i=(pos_x + rowspan - 1);i>(pos_x + 1);i--)
+  {
+    gotoxy(i,(pos_y + colspan -1));
+    cout<<arr[5];
+  }
+  
+  gotoxy(pos_x+1 , pos_y + colspan -1);
+  cout<<arr[6];
+
+  for(j=(pos_y + colspan -2);j>(pos_y + 1);j--)
+  {
+    gotoxy(pos_x + 1,j);
+    cout<<arr[7];
+  }
+}
+
+void renderScreen(char title[] = "\0", char info[] = "\0")
+{
+	clrscr();
+	box();
+	gotoxy((int)(40 - strlen(title)/2), 3);
+	puts(title);
+	gotoxy((int)(40 - strlen(info)/2), 5);
+	puts(info);
+
+}
+
 void splash_screen()
 {
     int gdriver = DETECT, gmode, errorcode;
@@ -64,48 +119,6 @@ void credits()
 struct entry {
     char operand[1000], operation[40], result[1000];
 };
-
-void box(int pos_x = 0, int pos_y = 0, int rowspan = 77, int colspan = 24){
-  char arr[8] = {'Ú', 'Ä', '¿', '³', 'Ù', 'Ä', 'À', '³'};
-  rowspan+=2;
-  colspan+=2;
-
-  gotoxy(pos_x+1, pos_y+1);
-  cout<<arr[0];
-  
-  for(int i=(pos_x+2);i<(pos_x + rowspan );i++)
-  {
-    gotoxy(i, pos_y + 1);
-    cout<<arr[1];
-  }
-  
-  gotoxy((pos_x + rowspan ), (pos_y +1));
-  cout<<arr[2];
-
-  for(int j=(pos_y + 2); j<(colspan + pos_y - 1);j++)
-  {
-    gotoxy((pos_x + rowspan),j);
-    cout<<arr[3];
-  }
-  
-  gotoxy((pos_x + rowspan  ), (pos_y + colspan - 1 ));
-  cout<<arr[4];
-
-  for(i=(pos_x + rowspan - 1);i>(pos_x + 1);i--)
-  {
-    gotoxy(i,(pos_y + colspan -1));
-    cout<<arr[5];
-  }
-  
-  gotoxy(pos_x+1 , pos_y + colspan -1);
-  cout<<arr[6];
-
-  for(j=(pos_y + colspan -2);j>(pos_y + 1);j--)
-  {
-    gotoxy(pos_x + 1,j);
-    cout<<arr[7];
-  }
-}
 
 int HCF(int a, int b)
 {
@@ -290,35 +303,52 @@ void mult (int a[10][10],int b[10][10],int c[10][10],int m)
 
 void matrix_ops()
 {
-	// TODO: alignment editing	
+	// aligned	
 	
     clrscr();
+    renderScreen("Matrix Operations");
+    gotoxy(0, 5);
+    
     int a[10][10], c[10][10], m = 0;
-    cout<<"Enter size of square matrix\n";
+    cout<<"³\tEnter size of square matrix\n";
     while (m <= 0)
+    {
+    	cout<<"³\t";
         cin>>m;
-    cout<<"\nEnter the matrix\n";
+    }
+    cout<<"\n³\tEnter the matrix\n";
     for(int i=0;i<m;i++)
     {
-        cout<<"\nRow "<<i+1<<endl;
+        cout<<"\n³\tRow "<<i+1<<endl;
+        cout<<"³\t";
         for(int j=0;j<m;j++)
+        {
             cin>>a[i][j];
+        }
     }
     
     int n=0;
     clrscr();
+    renderScreen("Matrix Operations");
+    gotoxy(0, 5);
     
     // start here:
     // char list[8][] = {};
-    cout<<"\nSelect Operation \n1.Determinant \n2.Inverse \n3.Transpose \n4.Square \n5.Trace \n6.Multiplication \n7.Adjoint"<<endl;
+    cout<<"\n³\tSelect Operation \n³\t1.Determinant \n³\t2.Inverse \n³\t3.Transpose \n³\t4.Square \n³\t5.Trace \n³\t6.Multiplication \n³\t7.Adjoint"<<endl;
     while (!(n >= 1 && n <= 7))
+    {
+        cout<<"³\t";
         cin>>n;
+    }
     
     clrscr();
+    renderScreen("Matrix Operations");
+    gotoxy(0, 5);
+    
     switch (n)
     {
         case 1:
-            cout<<"\n Determinant = "<<det(a, m);
+            cout<<"\n³\tDeterminant = "<<det(a, m);
             break;
             
         case 2:
@@ -326,9 +356,10 @@ void matrix_ops()
             break;
             
         case 3:
-            cout<<"\n Transpose ="<<endl;
+            cout<<"\n³\tTranspose = \n"<<endl;
             for(int i=0;i<m;i++)
             {
+            	cout<<"³\t";
                 for(int j=0;j<m;j++)
                 {
                     cout<<a[j][i]<<"\t";
@@ -338,10 +369,11 @@ void matrix_ops()
             break;
             
         case 4:
-            cout<<"\n Square ="<<endl;
+            cout<<"\n³\tSquare ="<<endl;
             mult(a,a,c,m);
             for(i=0;i<m;i++)
             {
+            	cout<<"³\t";
                 for(int j=0;j<m;j++)
                 {
                     cout<<c[i][j]<<"\t";
@@ -356,15 +388,16 @@ void matrix_ops()
                 for(int j=0;j<m;j++)
                     if(i==j)
                         trace+=a[i][j];
-            cout<<"\n Trace ="<<trace;
+            cout<<"\n³\tTrace = "<<trace;
             break;
             
         case 6:
             int b[10][10];
-            cout<<"\nEnter another matrix of dimension "<<m<<endl;
+            cout<<"\n³\tEnter another matrix of dimension "<<m<<endl;
             for(i=0;i<m;i++)
             {
-                cout<<"\nRow "<<i+1<<endl;
+                cout<<"\n³\tRow "<<i+1<<endl;
+                cout<<"³\t";
                 for(int j=0;j<m;j++)
                     cin>>b[i][j];
             }
@@ -372,6 +405,7 @@ void matrix_ops()
             cout<<"Product of matrices ="<<endl;
             for(i=0;i<m;i++)
             {
+            	cout<<"³\t";
                 for(int j=0;j<m;j++)
                     cout<<c[i][j]<<"\t";
                 cout<<endl;
@@ -387,26 +421,34 @@ void matrix_ops()
 
 void integrate_def()
 {
-	// TODO: alignment editing	
-	
-	clrscr();
-	cout<<"Enter lower and upper limit\n";
-	double upper, lower;
-	cin>>lower>>upper;
-	clrscr();
+	// aligned
 	char grand[1000] = "";
 	double result = 0;
 	char ch;
 	int coeff, cofactor, argcount = 0;
+	
+	clrscr();
+	renderScreen("Definite Integration");
+	gotoxy(40 - strlen(grand)/2, 4);
+	cout<<grand<<endl;
+	
+	cout<<"³\tEnter lower and upper limit\n";
+	double upper, lower;
+	cout<<"³\t";
+	cin>>lower;
+	cout<<"³\t";
+	cin>>upper;
+	clrscr();
 
 	do
 	{
 		clrscr();
-		gotoxy(40 - strlen(grand)/2, 2);
-		cout<<grand<<endl;
-
-		cout<<"Make your choice:\n\n1.x\n2.sin x\n3.cos x\n4.tan x\n5.e^x\nC.calculate\n\n";
+		renderScreen("Definite Integration", grand);
+		gotoxy(40 - strlen(grand)/2, 4);
+		
+		cout<<"\n\n³\tMake your choice:\n³\t1. x\n³\t2. sin x\n³\t3. cos x\n³\t4. tan x\n³\t5. e^x\n³\tC. Calculate\n³\t";
 		ch = getch();
+		
 		switch (ch)
 		{
 			case '1':
@@ -424,17 +466,19 @@ void integrate_def()
 
 		if (!(ch == 'c' | ch == 'C'))
 		{
-			cout<<"\nEnter the coefficient: ";
+			cout<<"\n³\tEnter the coefficient:\n";
 			do {
+			cout<<"³\t";
 			cin>>coeff;
 			} while (coeff==0);
 
 			if(ch == '1' | ch == '5')
-				cout<<"\nEnter the exponent: ";
+				cout<<"\n³\tEnter the exponent:\n";
 			else
-				cout<<"\nEnter x's cofactor: ";
+				cout<<"\n³\tEnter x's cofactor:\n";
 
 			do {
+			cout<<"³\t";
 			cin>>cofactor;
 			} while (cofactor==0);
 
@@ -534,8 +578,10 @@ void integrate_def()
 		cout<<grand<<endl;
 
 	} while(!((ch == 'c' | ch == 'C') | argcount >= 5));
-
-	cout<<endl<<"Result: "<<result;
+	
+	renderScreen("Definite Integration");
+	gotoxy(40 - strlen(grand)/2, 4);
+	cout<<endl<<"³\tResult: "<<result;
 	
 	fstream x("result.dat", ios::binary|ios::app);
 	entry r;
@@ -550,7 +596,7 @@ void integrate_def()
 
 void integrate()
 {
-	// TODO: alignment editing	
+	// aligned
 	clrscr();
 	char grand[1000] = "";
 	char result[1000] = "";
@@ -560,11 +606,12 @@ void integrate()
 	do 
 	{
 		clrscr();
-		gotoxy(40 - strlen(grand)/2, 2);
-		cout<<grand<<endl;
+		renderScreen("Indefinite Integration", grand);
+		gotoxy(40 - strlen(grand)/2, 4);
 		
-		cout<<"Make your choice:\n\n1.x\n2.sin x\n3.cos x\n4.tan x\n5.e^x\nC.calculate\n\n";
+		cout<<"\n\n³\tMake your choice:\n³\t1. x\n³\t2. sin x\n³\t3. cos x\n³\t4. tan x\n³\t5. e^x\n³\tC. Calculate\n³\t";
 		ch = getch();
+		cout<<endl;
 		switch (ch)
 		{
 			case '1':
@@ -582,17 +629,19 @@ void integrate()
 		
 		if (!(ch == 'c' | ch == 'C'))
 		{
-			cout<<"\nEnter the coefficient: ";
+			cout<<"\n³\tEnter the coefficient: ";
 			do {
+			cout<<"\n³\t";
 			cin>>coeff;
 			} while (coeff==0);
 			
 			if(ch == '1' | ch == '5')
-				cout<<"\nEnter the exponent: ";
+				cout<<"\n³\tEnter the exponent: ";
 			else
-				cout<<"\nEnter x's cofactor: ";
+				cout<<"\n³\tEnter x's cofactor: ";
 				
 			do {
+			cout<<"\n³\t";
 			cin>>cofactor;
 			} while (cofactor==0);
 
@@ -735,8 +784,9 @@ void integrate()
 		cout<<grand<<endl;
 
 	} while(!((ch == 'c' | ch == 'C') | argcount >= 5));
-
-	cout<<endl<<"Result: "<<result;
+	
+	renderScreen("Indefinite Integration");
+	cout<<endl<<"³\tResult: "<<result;
 	
 	fstream x("result.dat", ios::binary|ios::app);
 	entry r;
@@ -752,7 +802,7 @@ void integrate()
 
 void history()
 {
-	const int limit = 8;
+	const int limit = 10;
 
 	clrscr();
 	fstream x("result.dat", ios::binary|ios::in);
@@ -778,20 +828,10 @@ void history()
 	
 }
 
-void renderScreen(char title[] = "\0", char info[] = "\0")
-{
-	clrscr();
-	box();
-	gotoxy((int)(40 - strlen(title)/2), 3);
-	puts(title);
-	gotoxy((int)(40 - strlen(info)/2), 22);
-	puts(info);
-
-}
 
 void differentiate()
 {
-	// TODO: alignment editing	
+	// Aligned
 	
 	char exp[1000] = "", res[1000] = "";
 	int argcount = 0;
@@ -800,10 +840,12 @@ void differentiate()
 	do {
 	
 		clrscr();
-		gotoxy(40 - strlen(exp)/2, 2); 
-		cout<<exp<<endl<<endl;
-		cout<<"Make your choice:\n1. x\n2. sin x\n3. cos x\n4. tan x\n5. e^x\nC. Calculate\n\n";
+		renderScreen("Differentiation", exp);
+		gotoxy(40 - strlen(exp)/2, 4);
+		cout<<"\n\n³\tMake your choice:\n³\t1. x\n³\t2. sin x\n³\t3. cos x\n³\t4. tan x\n³\t5. e^x\n³\tC. Calculate\n³\t";
+				
 		ch = getch();
+		cout<<endl;
 		int quit = 0;
 		switch (ch)
 		{
@@ -825,105 +867,113 @@ void differentiate()
 			break;
 			
 		int coeff = 0, exponent = 0;
-		cout<<"Enter coefficient\n";
-		while (coeff == 0)
-			cin>>coeff;
-		cout<<"\nEnter exponent\n";
-		while (exponent == 0)
-			cin>>exponent;
 		
+		cout<<"³\tEnter coefficient\n";
+		while (coeff == 0)
+		{
+			cout<<"³\t";
+			cin>>coeff;
+		}
+		cout<<"\n³\tEnter exponent\n";
+		while (exponent == 0)
+		{
+			cout<<"³\t";
+			cin>>exponent;
+		}
+
 		if (argcount != 0)
 		{
 			strcat(exp, " + ");
 			strcat(res, " + ");
 		}
-		
+
 		char stra[5], strb[5], strc[5], strd[5];
 		itoa(coeff, stra, 10);
 		itoa(coeff*exponent, strb, 10);
 		itoa(exponent, strc, 10);
 		itoa(exponent - 1, strd, 10);
-		
-		if (coeff != 1)	
+
+		if (coeff != 1)
 			strcat(exp, stra);
 		if (coeff * exponent != 1)
 			strcat(res, strb);
-			
+
 		switch (ch)
 		{
 			case '1':
 				strcat (exp, "x^");
 				strcat (exp, strc);
-				
+
 				if (exponent - 1 != 0)
 				{
 					strcat (res, "x^");
 					strcat (res, strd);
 				}
-				else 
+				else
 					strcat (res, strb);
-					
+
 				break;
-				
+
 			case '2':
 				strcat (exp, "(sin x)^");
 				strcat (exp, strc);
-				
+
 				strcat (res, "(cos x)");
 				if (exponent - 1 != 0)
 				{
 					strcat (res, "(sin x)^");
 					strcat (res, strd);
 				}
-				
+
 				break;
-				
+
 			case '3':
 				strcat (exp, "(cos x)^");
 				strcat (exp, strc);
-				
+
 				strcat (res, "(-sin x)");
 				if (exponent - 1 != 0)
 				{
 					strcat (res, "(cos x)^");
 					strcat (res, strd);
 				}
-				
+
 				break;
-				
+
 			case '4':
 				strcat (exp, "(tan x)^");
 				strcat (exp, strc);
-				
+
 				strcat (res, "(sec x) ^ 2");
 				if (exponent - 1 != 0)
 				{
 					strcat (res, " * (tan x)^");
 					strcat (res, strd);
 				}
-				
+
 				break;
-				
+
 			case '5':
 				strcat (exp, "e^");
 				if(exponent != 1)
 					strcat(exp, strc);
 				strcat(exp, "x");
-				
+
 				strcat (res, "e^");
 				if(exponent != 1)
 					strcat(res, strc);
 				strcat(res, "x");
 		}
-		
+
 		clrscr();
 		argcount++;
-		
+
 	} while (argcount <= 5);
-	
+
 	clrscr();
-	cout<<"\nResult:\n\n"<<res;
-	
+	renderScreen("Differentiation");
+	cout<<"\n³\tResult: "<<res;
+
 	fstream x("result.dat", ios::binary|ios::app);
 	entry r;
 	strcpy(r.operand, exp);
@@ -931,15 +981,15 @@ void differentiate()
 	strcpy(r.result, res);
 	x.write((char*)&r, sizeof(r));
 	x.close();
-	
+
 	getch();
 }
-	
+
 
 void main()
 {
     clrscr();
-    splash_screen();
+    //splash_screen();
     clrscr();
 	char list[6][100] = {"Definite Integration", "Indefinite Integration", "Differentiation", "Matrix Operations", "History", "Quit"};
 	char ch;
@@ -979,5 +1029,5 @@ void main()
 	} while (ch != '6');
     
     clrscr();
-    credits();
+    //credits();
 }
