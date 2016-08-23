@@ -206,9 +206,10 @@ void adj (int a[10][10], int m)
     
     transpose(res, m);
     
-    cout<<"Adjoint:\n\n";
+    cout<<"許tAdjoint:\n\n";
     for (i = 0; i < m; i++)
     {
+    	cout<<"許t";
         for (j = 0; j < m; j++)
             cout<<res[i][j]<<" ";
         cout<<endl;
@@ -258,9 +259,10 @@ void inv (int a[10][10], int m)
     
     if (d != 0)
     {
-        cout<<"Inverse:\n\n";
+        cout<<"許tInverse:\n\n";
         for (i = 0; i < m; i++)
         {
+        	cout<<"許t";
             for (j = 0; j < m; j++)
             {
                 hcf = HCF(res[i][j], d);
@@ -281,7 +283,7 @@ void inv (int a[10][10], int m)
     }
     else
     {
-        cout<<"Inverse doesn't exist.";
+        cout<<"許tInverse doesn't exist.";
     }
     
     
@@ -327,96 +329,108 @@ void matrix_ops()
         }
     }
     
-    int n=0;
-    clrscr();
-    renderScreen("Matrix Operations");
-    gotoxy(0, 5);
+    int n;
     
-    // start here:
-    // char list[8][] = {};
-    cout<<"\n許tSelect Operation \n許t1.Determinant \n許t2.Inverse \n許t3.Transpose \n許t4.Square \n許t5.Trace \n許t6.Multiplication \n許t7.Adjoint"<<endl;
-    while (!(n >= 1 && n <= 7))
+    do
     {
-        cout<<"許t";
-        cin>>n;
-    }
-    
-    clrscr();
-    renderScreen("Matrix Operations");
-    gotoxy(0, 5);
-    
-    switch (n)
-    {
-        case 1:
-            cout<<"\n許tDeterminant = "<<det(a, m);
-            break;
-            
-        case 2:
-            inv(a, m);
-            break;
-            
-        case 3:
-            cout<<"\n許tTranspose = \n"<<endl;
-            for(int i=0;i<m;i++)
-            {
-            	cout<<"許t";
-                for(int j=0;j<m;j++)
-                {
-                    cout<<a[j][i]<<"\t";
-                }
-                cout<<endl;
-            }
-            break;
-            
-        case 4:
-            cout<<"\n許tSquare ="<<endl;
-            mult(a,a,c,m);
-            for(i=0;i<m;i++)
-            {
-            	cout<<"許t";
-                for(int j=0;j<m;j++)
-                {
-                    cout<<c[i][j]<<"\t";
-                }
-                cout<<endl;
-            }
-            break;
-            
-        case 5:
-            int trace=0;
-            for(i=0;i<m;i++)
-                for(int j=0;j<m;j++)
-                    if(i==j)
-                        trace+=a[i][j];
-            cout<<"\n許tTrace = "<<trace;
-            break;
-            
-        case 6:
-            int b[10][10];
-            cout<<"\n許tEnter another matrix of dimension "<<m<<endl;
-            for(i=0;i<m;i++)
-            {
-                cout<<"\n許tRow "<<i+1<<endl;
-                cout<<"許t";
-                for(int j=0;j<m;j++)
-                    cin>>b[i][j];
-            }
-            mult(a,b,c,m);
-            cout<<"Product of matrices ="<<endl;
-            for(i=0;i<m;i++)
-            {
-            	cout<<"許t";
-                for(int j=0;j<m;j++)
-                    cout<<c[i][j]<<"\t";
-                cout<<endl;
-            }
-            break;
-            
-        case 7:
-            adj(a, m);
-            break;
-    }
-    getch();
+		clrscr();
+		renderScreen("Matrix Operations");
+		gotoxy(0, 5);
+	
+		// start here:
+		// char list[8][] = {};
+		n = 0;
+		cout<<"\n許tSelect Operation \n許t1.Determinant \n許t2.Inverse \n許t3.Transpose \n許t4.Square \n許t5.Trace \n許t6.Multiplication \n許t7.Adjoint\n許t8.Quit"<<endl;
+		while (!(n >= 1 && n <= 8))
+		{
+			cout<<"許t";
+			cin>>n;
+		}
+		
+		if (n == 8)
+			break;
+	
+		clrscr();
+		renderScreen("Matrix Operations");
+		gotoxy(0, 5);
+	
+		switch (n)
+		{
+			case 1:
+				cout<<"\n許tDeterminant = "<<det(a, m);
+				break;
+			
+			case 2:
+				inv(a, m);
+				break;
+			
+			case 3:
+				cout<<"\n許tTranspose = \n"<<endl;
+				for(int i=0;i<m;i++)
+				{
+					cout<<"許t";
+					for(int j=0;j<m;j++)
+					{
+						cout<<a[j][i]<<"\t";
+					}
+					cout<<endl;
+				}
+				break;
+			
+			case 4:
+				cout<<"\n許tSquare ="<<endl;
+				mult(a,a,c,m);
+				for(i=0;i<m;i++)
+				{
+					cout<<"許t";
+					for(int j=0;j<m;j++)
+					{
+						cout<<c[i][j]<<"\t";
+					}
+					cout<<endl;
+				}
+				break;
+			
+			case 5:
+				int trace=0;
+				for(i=0;i<m;i++)
+					for(int j=0;j<m;j++)
+						if(i==j)
+							trace+=a[i][j];
+				cout<<"\n許tTrace = "<<trace;
+				break;
+			
+			case 6:
+				int b[10][10];
+				cout<<"\n許tEnter another matrix of dimension "<<m<<endl;
+				for(i=0;i<m;i++)
+				{
+					cout<<"\n許tRow "<<i+1<<endl;
+					cout<<"許t";
+					for(int j=0;j<m;j++)
+						cin>>b[i][j];
+				}
+				mult(a,b,c,m);
+				clrscr();
+				renderScreen("Matrix Operations");
+				gotoxy(0, 5);
+				cout<<"許tProduct of matrices ="<<endl;
+				for(i=0;i<m;i++)
+				{
+					cout<<"許t";
+					for(int j=0;j<m;j++)
+						cout<<c[i][j]<<"\t";
+					cout<<endl;
+				}
+				break;
+			
+			case 7:
+				adj(a, m);
+				break;
+		}
+		getch();
+		
+    } while (n != 8);
 }
 
 void integrate_def()
@@ -989,7 +1003,7 @@ void differentiate()
 void main()
 {
     clrscr();
-    //splash_screen();
+    splash_screen();
     clrscr();
 	char list[6][100] = {"Definite Integration", "Indefinite Integration", "Differentiation", "Matrix Operations", "History", "Quit"};
 	char ch;
@@ -1029,5 +1043,5 @@ void main()
 	} while (ch != '6');
     
     clrscr();
-    //credits();
+    credits();
 }
